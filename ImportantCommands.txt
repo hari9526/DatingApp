@@ -16,4 +16,7 @@ git remote add origin https://github.com/hari9526/DatingApp.git
                         : This tells where is our remote repo is. 
 
 
-git push -u origin main : Specify where to push the changes(branch or master)
+git push -u origin main : Specify where to push the changes(branch or master). Note master 
+                        is changed to main now. But I was getting error. In my case, I had to use 
+                        orgin master. git show-ref: Use this to know whether one should use master or main. 
+
