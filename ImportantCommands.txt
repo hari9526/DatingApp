@@ -1,0 +1,16 @@
+
+Command line code for migration: 
+For creating migration
+dotnet ef migrations add InitialCreate  -o Data/Migrations
+For updating database 
+dotnet ef database update 
+
+
+GIT Commands 
+git init : Initialises our project (existing) for GIT. 
+dotnet new gitignore : For ignoring unnecessary file for git like build results. This commands creates
+                       file named gitignore and then it contains all the file that should be ignored. 
+                       this file is customizable. Also, add appsettings.json file cuz it'll have all the sensitive informations of our repo. 
+
+
+
