@@ -12,5 +12,8 @@ dotnet new gitignore : For ignoring unnecessary file for git like build results.
                        file named gitignore and then it contains all the file that should be ignored. 
                        this file is customizable. Also, add appsettings.json file cuz it'll have all the sensitive informations of our repo. 
 
+git remote add origin https://github.com/hari9526/DatingApp.git 
+                        : This tells where is our remote repo is. 
 
 
+git push -u origin main : Specify where to push the changes(branch or master)
