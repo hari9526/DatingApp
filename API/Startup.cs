@@ -34,6 +34,7 @@ namespace API
                 options.UseSqlite(_config.GetConnectionString("DefaultConnection")); 
             }); 
             services.AddControllers();
+            services.AddCors(); 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
@@ -44,6 +45,7 @@ namespace API
         //Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //ordering is important
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -54,9 +56,11 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            //Here are specifying origin other than the server to access the resouces in the server.             
+            app.UseCors( x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
 
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {

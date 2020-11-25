@@ -18,5 +18,16 @@ git remote add origin https://github.com/hari9526/DatingApp.git
 
 git push -u origin main : Specify where to push the changes(branch or master). Note master 
                         is changed to main now. But I was getting error. In my case, I had to use 
-                        orgin master. git show-ref: Use this to know whether one should use master or main. 
+                        orgin master. git show-ref: Use this to know whether one should use master or main.
+
+
+Angular: 
+
+ng new client : For creating Angular application. First, go to the required folder on where 
+                where you wanna create the app. 
+
+Extensions for Angular in VSCode: 
+1. Angular Language Service : For auto complete, info and go to definition feature. 
+2. Angular Snippets: For faster coding by auto complete. 
+3. Bracket pair colorizor 2 : For colorizing brackets. 
 

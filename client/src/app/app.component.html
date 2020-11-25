@@ -1,0 +1,15 @@
+<h1>{{title}}</h1>
+
+
+<p *ngIf="true">
+    Expression is true and ngIf is true.
+    This paragraph is in the DOM.
+</p>
+<p *ngIf="true">
+    Expression is false and ngIf is false.
+    This paragraph is not in the DOM.
+</p>
+
+<ul>
+    <li *ngFor="let user of users">{{user.id}} - {{user.userName}}</li>
+</ul>
