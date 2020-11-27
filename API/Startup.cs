@@ -12,14 +12,20 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-using API.Data; 
+using API.Data;
+using API.Interfaces;
+using API.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using API.Extensions;
 
 namespace API
 {
     public class Startup
     {
         //Dependenc injection for startup class. 
-        private readonly IConfiguration _config; 
+        private readonly IConfiguration _config;
         public Startup(IConfiguration config)
         {
             _config = config;
@@ -30,15 +36,14 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             //Order here is not important 
-            services.AddDbContext<DataContext>(options => {
-                options.UseSqlite(_config.GetConnectionString("DefaultConnection")); 
-            }); 
+            services.AddApplicationServices(_config); //Extension method to keep it neat 
             services.AddControllers();
-            services.AddCors(); 
+            services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
+            services.AddIdentityServiceExtensions(_config); //Extension method
         }
 
         // This method gets called by the runtime. 
@@ -57,8 +62,9 @@ namespace API
 
             app.UseRouting();
             //Here are specifying origin other than the server to access the resouces in the server.             
-            app.UseCors( x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
