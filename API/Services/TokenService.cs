@@ -23,7 +23,7 @@ namespace API.Services
             //first create a claim. Name id of the JWT token is 
             //given as username. 
             var claim = new List<Claim>{
-                new Claim(JwtRegisteredClaimNames.NameId, user.UserName)
+                new Claim(JwtRegisteredClaimNames.NameId, user.Email)
             }; 
             var credentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature); 
             var tokenDescriptor = new SecurityTokenDescriptor{

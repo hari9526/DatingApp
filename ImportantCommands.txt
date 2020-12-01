@@ -29,6 +29,13 @@ Angular:
 ng new client : For creating Angular application. First, go to the required folder on where 
                 where you wanna create the app. 
 
+
+ng g -h : For help
+ng g c compnonentName : For creating a component. Make sure you are 
+                        creating it under the app folder. 
+ng g c componentName --skip-test: To avoid creating spec.ts class for testing 
+
+
 Extensions for Angular in VSCode: 
 1. Angular Language Service : For auto complete, info and go to definition feature. 
 2. Angular Snippets: For faster coding by auto complete. 

@@ -7,7 +7,11 @@ namespace API.DTOs
         //Its' a good idea to add validations in DTOs. 
         //Also, the validations are handled to the [ApiController]. 
         [Required]
-        public string Username { get; set; }
+        public string FirstName { get; set; }
+        [Required]
+        public string LastName { get; set; }
+        [Required]
+        public string Email { get; set; }
         [Required]
         public string Password { get; set; }
     }

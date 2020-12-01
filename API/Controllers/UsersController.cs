@@ -29,7 +29,7 @@ namespace API.Controllers
             //await key word. 
             return await _context.Users.ToListAsync();
         }
-        [Authorize]
+     
         [HttpGet("{id}")] //For telling that there is an id parameter. 
         public async Task<ActionResult<AppUser>> GetUser(int id)
         {

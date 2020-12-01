@@ -4,6 +4,7 @@ using API.Entities;
 using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -23,7 +24,7 @@ namespace API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
-            if (await UserExists(registerDto.Username))
+            if (await UserExists(registerDto.Email))
                 return BadRequest("Username already exists");
             //using statement is used for disposing a class
             //once that class' work is completed. 
@@ -33,23 +34,30 @@ namespace API.Controllers
             using var hmac = new HMACSHA512();
             var user = new AppUser
             {
-                UserName = registerDto.Username.ToLower(),
+                FirstName = registerDto.FirstName,
+                LastName = registerDto.LastName,
+                Email = registerDto.Email.ToLower(),
+                CreatedTime = DateTime.Now, 
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
                 PasswordSalt = hmac.Key
             };
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            return new UserDto{
-                Username = user.UserName, 
+            return new UserDto
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                CreatedTime = user.CreatedTime,
                 Token = _tokenService.CreateToken(user)
             };
         }
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == loginDto.Username.ToLower());
+            var user = await _context.Users.SingleOrDefaultAsync(x => x.Email == loginDto.Email.ToLower());
             if (user == null)
-                return Unauthorized("Invalid Username");
+                return Unauthorized("Invalid Email");
             using var hmac = new HMACSHA512(user.PasswordSalt);
             var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
             //Since this is a bytearray we need to compare each bit or element of array. 
@@ -58,16 +66,20 @@ namespace API.Controllers
                 if (computedHash[i] != user.PasswordHash[i])
                     return Unauthorized("Invalid Password");
             }
-            return new UserDto{
-                Username = user.UserName, 
+            return new UserDto
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                CreatedTime = user.CreatedTime,
                 Token = _tokenService.CreateToken(user)
             };
 
 
         }
-        private async Task<bool> UserExists(string username)
+        private async Task<bool> UserExists(string email)
         {
-            return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
+            return await _context.Users.AnyAsync(x => x.Email == email.ToLower());
         }
 
     }
