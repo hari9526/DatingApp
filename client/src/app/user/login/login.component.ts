@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/_services/account.service';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -12,27 +12,33 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent implements OnInit {
   isLoading: boolean = false; 
   loginButtonText : string = "log in"; 
-  formModel={
-    Email:'',
-    Password:''
-  }
-  constructor(private accountService : AccountService, private router : Router, private toastr: ToastrService) { }
-
+  
+  constructor(public accountService : AccountService, private router : Router, private toastr: ToastrService, private fb: FormBuilder) { }
+  formModel=this.fb.group({
+    Email: ['', [Validators.required, Validators.email]], 
+    Password: ['', [Validators.required, Validators.minLength(4)]]
+  }); 
   ngOnInit(): void {
   }
   onSubmit(){
     this.isLoading = true;
     this.loginButtonText = "Please wait :)"; 
-    this.accountService.login(this.formModel).subscribe(
+    var body ={
+ 
+      Email : this.formModel.value.Email, 
+      Password : this.formModel.value.Password
+    }
+    console.log(body)
+    this.accountService.login(body).subscribe(
       (res:any)=>{
         this.isLoading = false;
         this.router.navigateByUrl('/nav');
-        this.toastr.error('Incorrect username or password:(', 'Authentication Failed!'); 
+        this.toastr.success('', 'Welcome!'); 
       }, 
       err => {
         if(err.status = 400){
           this.toastr.error('Incorrect username or password:(', 'Authentication Failed!'); 
-          console.log("Error testing"); 
+          console.log("Error testing");  
           this.isLoading = false;
           this.loginButtonText = "Try Again :("; 
         }

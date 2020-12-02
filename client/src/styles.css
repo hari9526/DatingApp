@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 /* You can add global styles to this file, and also import other style files */
-
+@import '~ngx-toastr/toastr.css';
 input.form-control,input.form-control:focus{
     background-color: #fff;
     color: rgb(8, 8, 8);

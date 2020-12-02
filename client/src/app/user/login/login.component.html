@@ -1,22 +1,29 @@
 <img src="/assets/img/icon.png" width="150" height="150" class="mx-auto d-block mt-5 mb-4">
-<form  #form='ngForm' class="mb-4" autocomplete="off" (submit)="onSubmit()" [@itemAnim]>
-    <div class="form-group mb-0">
-        <label>Email </label>
-        <input class='form-control'     
-         name="Email" 
-         [(ngModel)]="formModel.Email">
+<form [formGroup]="formModel" class="mb-4" autocomplete="off" (submit)="onSubmit()" [@itemAnim]>
+  <div class="form-group mb-0">
+    <label>Email </label>
+    <input class='form-control' name="Email" formControlName="Email">
+    <label class="text-danger" *ngIf="formModel.get('Email').touched && formModel.get('Email').errors?.required">This
+      field is
+      mandatory.</label>
+    <label class="text-danger" *ngIf="formModel.get('Email').touched && formModel.get('Email').errors?.email">Invalid
+      email
+      address.</label>
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" class='form-control' name="Password" formControlName="Password">
+    <label class="text-danger"
+      *ngIf="formModel.get('Password').touched && formModel.get('Password').errors?.required">This
+      field is mandatory.</label>
+    <label class="text-danger"
+      *ngIf="formModel.get('Password').touched && formModel.get('Password').errors?.minlength">Minimum
+      4 characters required.</label>
+  </div>
+  <div class="form-row mt-4">
+    <div class="form-group col-md-8 offset-md-2">
+      <button type="submit" class="btn btn-lg btn-block" [disabled]="!formModel.valid"><img *ngIf="isLoading"
+          style="width :30px" src="assets/img/Loader.gif">{{loginButtonText}}</button>
     </div>
-    <div class="form-group">
-        <label>Password</label>
-        <input type="password" class='form-control'      
-         name="Password"
-          [(ngModel)]="formModel.Password">
-    </div>
-    <div class="form-row mt-4">
-        <div class="form-group col-md-8 offset-md-2">
-          <button type="submit" class="btn btn-lg btn-block"  [disabled]="form.invalid"><img *ngIf="isLoading" style="width :30px" src="assets/img/Loader.gif">{{loginButtonText}}</button>
-        </div>
-     </div>
+  </div>
 </form>
-
-
