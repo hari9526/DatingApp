@@ -1,21 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
 /* You can add global styles to this file, and also import other style files */
 @import '~ngx-toastr/toastr.css';
-input.form-control,input.form-control:focus{
+@import '~bootswatch/dist/journal/bootstrap.css'; 
+/* input.form-control,input.form-control:focus{
     background-color: #fff;
     color: rgb(8, 8, 8);
     border: 1px solid #636b7b;
 
-}
+} */
 
 
-button[type=submit].btn{
+/* button[type=submit].btn{
     border-radius: 20px;
     background-color: #DF1F00;
     color: #fff;
-}
+} */
 
-div.form-group label:not(.text-danger){
+/* div.form-group label:not(.text-danger){
     color: #545d6a;
     font-weight: 700;
 }
@@ -35,4 +36,4 @@ div.form-group.required>label:first-child:after{
  *,*:focus,*:hover{
     outline: 0px transparent !important;
     outline:none;
-}
+} */

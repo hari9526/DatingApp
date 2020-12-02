@@ -13,6 +13,12 @@ import { LoginComponent } from './user/login/login.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { RegisterComponent } from './user/register/register.component';
 import { ToastrModule } from 'ngx-toastr';
+import { MemberListComponent } from './members/member-list/member-list.component';
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+import { ListsComponent } from './lists/lists.component';
+import { MessagesComponent } from './messages/messages.component';
+import { HomeComponent } from './home/home.component';
+import { SharedModule } from './_modules/shared.module';
 
 
 
@@ -23,6 +29,11 @@ import { ToastrModule } from 'ngx-toastr';
     UserComponent,
     LoginComponent,
     RegisterComponent,
+    MemberListComponent,
+    MemberDetailComponent,
+    ListsComponent,
+    MessagesComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,10 +44,9 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserAnimationsModule, 
     FormsModule, 
     ReactiveFormsModule,
-    //For root means services that needs to intialized when 
-    //root module starts 
-    BsDropdownModule.forRoot(), 
-    ToastrModule.forRoot({progressBar:true})
+    //For housekeeping, I kept some 
+    //modules in a shared module 
+    SharedModule
     
   ],
   providers: [],

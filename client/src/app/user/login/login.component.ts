@@ -28,11 +28,10 @@ export class LoginComponent implements OnInit {
       Email : this.formModel.value.Email, 
       Password : this.formModel.value.Password
     }
-    console.log(body)
     this.accountService.login(body).subscribe(
       (res:any)=>{
         this.isLoading = false;
-        this.router.navigateByUrl('/nav');
+        this.router.navigateByUrl('/members');
         this.toastr.success('', 'Welcome!'); 
       }, 
       err => {

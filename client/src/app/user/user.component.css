@@ -3,27 +3,27 @@ body{
     background-color: #fff;
 }
 
-input.form-control,input.form-control:focus{
+/* input.form-control,input.form-control:focus{
     background-color: #fff;
     color: rgb(8, 8, 8);
     border: 1px solid #636b7b;
 
-}
+} */
 
-input.form-control:focus{
+/* input.form-control:focus{
     box-shadow: none;
-}
+} */
 
 button[type=submit].btn{
     border-radius: 20px;
     background-color: #DF1F00;
     color: #fff;
 }
-
+/* 
 div.form-group label:not(.text-danger){
     color: #545d6a;
     font-weight: 700;
-}
+} */
 
 div.form-group.required>label:first-child:after{
     content:'*';

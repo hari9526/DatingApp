@@ -12,19 +12,20 @@ import { AccountService } from '../_services/account.service';
 })
 
 export class NavComponent implements OnInit {
+  loggedIn: boolean = false; 
   currentUser$: Observable<User>;
-  constructor(private accountService: AccountService, private router: Router) {
+  constructor(public accountService: AccountService, private router: Router) {
+
   }
 
   ngOnInit(): void {
     this.currentUser$ = this.accountService.currentUser$;
   }
-  goToLogin() {
-    this.router.navigateByUrl("/user/login");
-  }
   logout() {
-    alert("SDF");
+
     this.accountService.logout();
+    this.router.navigateByUrl('/user/login');
   }
+  
 }
 

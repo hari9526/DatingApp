@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReplaySubject } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../_model/user';
 //Service would be available till the application runs in the browser
@@ -16,16 +16,23 @@ import { User } from '../_model/user';
 export class AccountService {
   baseUrl = 'https://localhost:5001/api/';
   private currentUser = new ReplaySubject<User>(1);
+  private isLoggedIn = new BehaviorSubject<boolean>(false);
+  public isUserLoggedIn$ : Observable<boolean>; 
   currentUser$ = this.currentUser.asObservable();
 
-
-
-
-
-
-  constructor(private http: HttpClient, private fb: FormBuilder) { }
+  constructor(private http: HttpClient, private fb: FormBuilder) {
+    this.loginStatus(); 
+    this.isUserLoggedIn$ = this.isLoggedIn.asObservable(); 
+   }
+//This is for checking whether user is logged when there is a refresh. 
+  loginStatus(){ 
+     if(localStorage.getItem('user')){
+       this.isLoggedIn.next(true);
+     }
+     else
+      this.isLoggedIn.next(false); 
+   }
   
-
 
   formModel = this.fb.group({
     FirstName: ['', Validators.required],
@@ -46,6 +53,10 @@ export class AccountService {
     }
 
   }
+  setLoginStatus(boolean){
+
+    this.isLoggedIn.next(boolean); 
+  }
   register() {
     var body ={
       FirstName : this.formModel.value.FirstName, 
@@ -63,6 +74,7 @@ export class AccountService {
       map((response: User) => {
         const user = response;
         if (user) {
+          this.setLoginStatus(true); 
           localStorage.setItem('user', JSON.stringify(user));
           this.currentUser.next(user);
         }
@@ -71,10 +83,12 @@ export class AccountService {
   }
 
   setCurrentUser(user: User) {
+    
     this.currentUser.next(user);
   }
 
   logout() {
+    this.setLoginStatus(false);
     localStorage.removeItem('user');
     this.currentUser.next(null);
   }
