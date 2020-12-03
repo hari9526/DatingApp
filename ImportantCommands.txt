@@ -36,6 +36,9 @@ ng g c compnonentName : For creating a component. Make sure you are
 ng g c componentName --skip-test: To avoid creating spec.ts class for testing 
 
 
+Route guard: 
+ng g guard guardName : Select Can Activate when they ask after typing this command. 
+
 Extensions for Angular in VSCode: 
 1. Angular Language Service : For auto complete, info and go to definition feature. 
 2. Angular Snippets: For faster coding by auto complete. 

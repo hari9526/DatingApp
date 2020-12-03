@@ -10,11 +10,12 @@ import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
 import { UserComponent } from './user/user.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { LoggedinGuard } from './_guards/loggedin.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'user/login', pathMatch: 'full' },
   {
-    path: 'user', component: UserComponent,
+    path: 'user', component: UserComponent, canActivate: [LoggedinGuard], 
     children: [
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent }
@@ -27,13 +28,13 @@ const routes: Routes = [
     children: [
       { path: 'home', component: HomeComponent },
       { path: 'members', component: MemberListComponent, canActivate: [AuthGuard] },
-      { path: 'members/:id', component: MemberDetailComponent },
-      { path: 'lists', component: ListsComponent },
-      { path: 'messages', component: MessagesComponent },
+      { path: 'members/:id', component: MemberDetailComponent, canActivate: [AuthGuard]  },
+      { path: 'lists', component: ListsComponent, canActivate: [AuthGuard]  },
+      { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard]  },
     ]
   },
 
-  { path: '**', component: LoginComponent, pathMatch: 'full' }
+  { path: '**', component: HomeComponent, pathMatch: 'full' }
 ];
 
 @NgModule({

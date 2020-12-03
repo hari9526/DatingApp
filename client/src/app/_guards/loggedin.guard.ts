@@ -7,10 +7,9 @@ import { AccountService } from '../_services/account.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
-  /**
-   *
-   */
+
+//This is for preventing logged in users from accessing login and register page. 
+export class LoggedinGuard implements CanActivate {
   constructor(private accountservice : AccountService,private route : Router) {
   
     
@@ -18,14 +17,14 @@ export class AuthGuard implements CanActivate {
   canActivate(): Observable<boolean> {
     return this.accountservice.currentUser$.pipe(
       map(user=>{
-        if(user){
-          return true; 
+        if(user){       
+          this.route.navigate(['/home']);
+          return false;         
         }
         else{
-          this.route.navigate(['/user/login']);  
-          return false; 
+          return true; 
         }
-               
+                                
       })
     );
   }
