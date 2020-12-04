@@ -36,8 +36,6 @@ export class LoginComponent implements OnInit {
       }, 
       err => {
         if(err.status = 400){
-          this.toastr.error('Incorrect username or password:(', 'Authentication Failed!'); 
-          console.log("Error testing");  
           this.isLoading = false;
           this.loginButtonText = "Try Again :("; 
         }

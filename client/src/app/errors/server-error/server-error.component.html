@@ -1,0 +1,23 @@
+<div class="container ">
+  
+        <h1 class="mt-5">Internal Server Error</h1> 
+        <button class="btn btn-outline-info" routerLink="/home">Get me otta here!</button>
+        <ng-container *ngIf="error" >
+        <p class="text-danger mt-3">Error: {{error.message}}</p>
+        
+        <p><b>What to do next?!</b></p>
+        <ol>
+            <li>Inspect</li>
+            <li>Check network tab</li>
+            <li>Check failing requests</li>
+            <li>Reproduce it in Postman, if there is still the same issue, then there is some problem with API</li>
+        </ol>
+        <p><b>Stack trace</b></p>
+        <code class="mt-5" style="background-color: whitesmoke">{{error.details}}</code>
+        </ng-container>
+   
+
+
+  
+
+</div>

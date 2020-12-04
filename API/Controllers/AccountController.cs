@@ -25,7 +25,7 @@ namespace API.Controllers
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
             if (await UserExists(registerDto.Email))
-                return BadRequest("Username already exists");
+                return BadRequest("Email already exists");
             //using statement is used for disposing a class
             //once that class' work is completed. 
             //We can only dispose classes that has dispose method in them 

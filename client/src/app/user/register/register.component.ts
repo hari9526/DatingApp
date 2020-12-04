@@ -25,10 +25,6 @@ export class RegisterComponent implements OnInit {
           this.isLoading = false;      
           this.signUpButtonText = "Register again?"; 
           this.toastr.success('You have completed the registration', 'Success!');           
-      }, 
-      err=>{
-        this.toastr.error('Something went wrong', 'Fuck!'); 
-        console.log(err); 
       }
     ); 
   }
